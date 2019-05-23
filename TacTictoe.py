@@ -16,11 +16,28 @@ class BoardNode:
         self.parents = [] # all layouts that can lead to this one, by one move
         self.children = [] # all layouts that can be reached with a single move
 
+        #Implement these
+        self.bestmove = -1
+        self.moves_to_end = 0
+        self.finalstate = "d"
+
+    #get info from children to get your info
+    #look at children, find min num of moves to end, such that final state is 'x' or 'o', else play 'd'. Choose subgroup of children who will win, then who will be fastest, then pick a random child. else, pick a random draw. if lose, find the child who will take the longest, then pick randomly
     def print_me(self):
         print ('layout:',self.layout, 'endState:',self.endstate)
         print ('parents:',self.parents)
         print ('children:',self.children)
+        print ('best move:', self.bestmove)
+        print ('moves to end:',self.move_to_end)
+        print ('final expected state:', self.finalstate)
 
+def nummovesleft(string):
+    i = 0
+    for k in string:
+        if k == "_":
+            i += 1
+    return i
+    
 def winstate(string):
     #diagonals
     global Wins
@@ -85,14 +102,9 @@ def CreateAllBoards(layout,parent):
                 m = layout[:k] + currentmove + layout[k+1:]
                 CreateAllBoards(m,layout)
     
-
 CreateAllBoards("_________",[])
 print("length of board",len(AllBoards))
-mynum = 0
-myx = 0
-myo = 0
-myd = 0
-myNone = 0
+mynum, myx, myo, myd, myNone = 0,0,0,0,0
 for k in AllBoards:
     mynum += len(AllBoards[k].children)
     Lmao = AllBoards[k].endstate
@@ -104,8 +116,8 @@ for k in AllBoards:
         myd += 1
     else:
         myNone += 1
-print("mynum",mynum)
-print("myx",myx)
-print("myo",myo)
-print("myd",myd)
-print("myNone",myNone)
+print("mynum:",mynum)
+print("myx:",myx)
+print("myo:",myo)
+print("myd:",myd)
+print("myNone:",myNone)
