@@ -187,7 +187,19 @@ def CreateAllBoards(layout):
                         K.moves_to_end = statex
                         K.final_state = 'x'
         #K.print_me()
-        return "number of moves needed = " + str(K.moves_to_end) + "\nbest move is " + str(K.best_move) + "\n" + K.final_state + " is the final state"
+        return "move number " + movenum(layout) + "\nbest move for " + currentmove + " is " + str(K.best_move) + ", located at " + directions(K.best_move) + "\n" + K.final_state + " is the expected final state in " +  str(K.moves_to_end) + " moves"
+
+def movenum(layout):
+    i = 0
+    for k in layout:
+        if k != "_":
+            i += 1
+    return str(i+1)
+    
+def directions(num):
+    dirarray = ['top left', 'top mid', 'top right', 'middle left', 'center', 'middle right', 'bottom left', 'bottom middle', 'bottom right']
+    return dirarray[num]
+    
 
 def main():
     print( CreateAllBoards(sys.argv[1]) )
