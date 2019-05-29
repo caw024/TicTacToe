@@ -187,7 +187,7 @@ def CreateAllBoards(layout):
                         K.moves_to_end = statex
                         K.final_state = 'x'
         #K.print_me()
-        return "move number " + movenum(layout) + "\nbest move for " + currentmove + " is " + str(K.best_move) + ", located at " + directions(K.best_move) + "\n" + K.final_state + " is the expected final state in " +  str(K.moves_to_end) + " moves"
+        return "move number " + movenum(layout) + "\nbest move for " + currentmove + " is " + str(K.best_move) + ", " + directions(K.best_move) + "\n" + K.final_state + " is the expected final state in " +  str(K.moves_to_end) + " moves"
 
 def movenum(layout):
     i = 0
@@ -197,8 +197,10 @@ def movenum(layout):
     return str(i+1)
     
 def directions(num):
+    if num == -1:
+        return 'game has ended'
     dirarray = ['top left', 'top mid', 'top right', 'middle left', 'center', 'middle right', 'bottom left', 'bottom middle', 'bottom right']
-    return dirarray[num]
+    return "located at" + dirarray[num]
     
 
 def main():
