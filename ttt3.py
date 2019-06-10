@@ -204,7 +204,35 @@ def directions(num):
     
 
 def main():
-    print( CreateAllBoards(sys.argv[1]) )
+    k = len(sys.argv)
+    print(k)
+    finals = ""
+    i = 1
 
+    f = 0
+    order = []
+    
+    while i < k:
+        print(sys.argv[i])
+        if sys.argv[i][0:2] == "id":
+            
+        elif sys.argv[i][0:5] == "board":
+            pass
+        elif sys.argv[i][0:11] == "cutoff_time":
+            pass
+        elif sys.argv[i][0:11] == "result_file":
+            f = open(sys.argv[i][12:],'w')
+        elif sys.argv[i][0:13] == "result_prefix":
+            finals += sys.argv[i][14:] + "\n"
+        else:
+            print("unidentified argument " + sys.argv[k])
+        i += 1
+
+    print( CreateAllBoards(sys.argv[1]) )
+    if f == 0:
+        print(finals)
+    else:
+        f.close()
+    
 main()
 
