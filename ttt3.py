@@ -200,7 +200,7 @@ def directions(num):
     if num == -1:
         return 'game has ended'
     dirarray = ['top left', 'top mid', 'top right', 'middle left', 'center', 'middle right', 'bottom left', 'bottom middle', 'bottom right']
-    return "located at" + dirarray[num]
+    return "located at " + dirarray[num]
     
 
 def main():
@@ -209,17 +209,17 @@ def main():
     finals = ""
     i = 1
 
-    f = 0
+    f,_id,_cutoff_time,_board,_result_file,_result_prefix = None,None,None,None,None,None
     order = []
     
     while i < k:
         print(sys.argv[i])
         if sys.argv[i][0:2] == "id":
-            
+            _id = True
         elif sys.argv[i][0:5] == "board":
-            pass
-        elif sys.argv[i][0:11] == "cutoff_time":
-            pass
+            _board = sys.argv[i][6:]
+        #elif sys.argv[i][0:11] == "cutoff_time":
+            #_cutoff_time = int(sys.argv[i][12:])
         elif sys.argv[i][0:11] == "result_file":
             f = open(sys.argv[i][12:],'w')
         elif sys.argv[i][0:13] == "result_prefix":
@@ -227,11 +227,17 @@ def main():
         else:
             print("unidentified argument " + sys.argv[k])
         i += 1
-
-    print( CreateAllBoards(sys.argv[1]) )
-    if f == 0:
+        
+    if _id:
+        finals += "author=C.Aw\ntitle=TicTacToe\n"
+    if _board:
+        finals += CreateAllBoards(_board) + "\n"
+    if f == None:
         print(finals)
     else:
+        print(finals)
+        f.write(finals)
+        print("wrote to a file")
         f.close()
     
 main()
